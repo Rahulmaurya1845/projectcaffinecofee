@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
   Lightbulb,
   Monitor,
@@ -7,40 +8,51 @@ import {
   ThumbsUp,
 } from "lucide-react";
 
+// ✅ Import 7 Days image properly (important)
+import sevenDaysImg from "../../assets/7days_challnge.png";
+
 const services = [
   {
     title: "CREATIVE",
     icon: Lightbulb,
     desc: `Because Creativity is the one-word definition of our agency and it's our solemn duty to provide an innovative solution to your problem`,
+    link: "/services/Creative",
   },
   {
     title: "DIGITAL",
     icon: Monitor,
     desc: `With the world at our fingertips, building brand awareness over digital platforms is essential to create an aura of the brand in the market`,
+    link: "/services/Digital",
   },
   {
     title: "PHOTOGRAPHY",
     icon: Camera,
     desc: `We have fashion photographers, product photographers, designers, stylists, and image editors, passion is to make the photo pitch-perfect`,
+    link: "/services/Photography",
   },
   {
     title: "FILMS",
     icon: Clapperboard,
-    desc: `Viral films are an effective way of brand promotion. Our web video production also amplifies customer engagement by educating the customers about your brands.`,
+    desc: `Viral films are an effective way of brand promotion.`,
+    link: "/services/Films",
   },
   {
     title: "WEBSITE",
     icon: Globe,
-    desc: `Website is the personality of your brand and we make sure it looks divine. We deliver SEO based, user-friendly, websites that attract the masses`,
+    desc: `Website is the personality of your brand and we make sure it looks divine.`,
+    link: "/services/Website",
   },
   {
     title: "SOCIAL",
     icon: ThumbsUp,
-    desc: `An uncompromising aspect every marketing plan, we help grow brands across social media by incorporating well-defined strategies curated by a team of experts.`,
+    desc: `We help grow brands across social media by incorporating well-defined strategies.`,
+    link: "/services/Social",
   },
 ];
 
 export default function ServicesAndChallenge() {
+  const navigate = useNavigate();
+
   return (
     <section id="services" className="w-full">
 
@@ -64,7 +76,7 @@ export default function ServicesAndChallenge() {
 
           <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-x-16 gap-y-16">
             {services.map((s) => (
-              <ServiceCard key={s.title} data={s} />
+              <ServiceCard key={s.title} data={s} navigate={navigate} />
             ))}
           </div>
         </div>
@@ -73,14 +85,12 @@ export default function ServicesAndChallenge() {
       {/* ===================== 07 DAYS CHALLENGE ===================== */}
       <div className="w-full bg-black">
         <div className="mx-auto max-w-7xl px-6 py-20">
-
-          {/* GROUP WRAPPER FOR POP EFFECT */}
           <div className="group grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
 
             {/* LEFT IMAGE */}
             <div className="flex justify-center lg:justify-start">
               <img
-                src="../../assets/7days_challnge.png"
+                src={sevenDaysImg}
                 alt="07 Days Challenge"
                 draggable="false"
                 className="
@@ -137,7 +147,7 @@ export default function ServicesAndChallenge() {
   );
 }
 
-function ServiceCard({ data }) {
+function ServiceCard({ data, navigate }) {
   const Icon = data.icon;
 
   return (
@@ -162,8 +172,8 @@ function ServiceCard({ data }) {
       </p>
 
       <div className="mt-8">
-        <a
-          href="#"
+        <button
+          onClick={() => navigate(data.link)}
           className="
             inline-flex items-center justify-center
             bg-lime-400 text-black font-bold
@@ -174,8 +184,9 @@ function ServiceCard({ data }) {
           "
         >
           READ MORE
-        </a>
+        </button>
       </div>
     </div>
   );
 }
+

@@ -1,143 +1,225 @@
-import Hero from "../components/Hero";
+import { useState } from "react";
+import contactImg from "../../assets/contact.svg";
 
 export default function ContactPage() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: ""
+  });
+
+  const [errors, setErrors] = useState({});
+
+  const validate = () => {
+    let newErrors = {};
+
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required";
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)
+    ) {
+      newErrors.email = "Invalid email address";
+    }
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Contact number is required";
+    }
+
+    if (!formData.subject.trim()) {
+      newErrors.subject = "Please select a subject";
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = "Message cannot be empty";
+    }
+
+    return newErrors;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const validationErrors = validate();
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+    } else {
+      setErrors({});
+      alert("Message Sent Successfully 🚀");
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: ""
+      });
+    }
+  };
+
   return (
     <>
-      <Hero />
+      {/* ===================== TOP BLACK SECTION ===================== */}
+<section className="w-full bg-black text-white">
+  <div className="max-w-7xl mx-auto px-6 py-28 flex items-center justify-center gap-40">
+    
+    <h1 className="text-5xl md:text-6xl font-extrabold">
+      <span className="text-yellow-400">कबीरा</span> SPEAKING
+    </h1>
 
-      {/* ===================== CONTACT MAIN ===================== */}
-      <section className="w-full bg-white">
-        <div className="mx-auto max-w-7xl px-6 pt-16 pb-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
-            {/* LEFT: SAY HELLO */}
-            <div>
-              <h2 className="text-center text-sm font-semibold tracking-[0.25em] text-black/70">
-                Say Hello
-              </h2>
+    <img
+      src={contactImg}
+      alt="Contact Illustration"
+      className="w-[45px]"
+      draggable="false"
+    />
 
-              <div className="mt-10 space-y-6 text-[11px] leading-5 text-black/70 max-w-md mx-auto">
-                {/* INDIA */}
-                <div>
-                  <p className="font-bold tracking-widest text-black/60">
-                    INDIA:
-                  </p>
-                  <p className="mt-1">
-                    C-567 Saraswati Vihar, Pitampura, New Delhi - 110034
-                  </p>
-                </div>
+  </div>
+</section>
 
-                {/* USA */}
-                <div>
-                  <p className="font-bold tracking-widest text-black/60">
-                    USA:
-                  </p>
-                  <p className="mt-1">
-                    800 Custer Avenue,
-                    <br />
-                    Evanston, Greater Chicago Area,
-                    <br />
-                    IL, 60202
-                  </p>
-                </div>
 
-                {/* UK */}
-                <div>
-                  <p className="font-bold tracking-widest text-black/60">
-                    UK:
-                  </p>
-                  <p className="mt-1">
-                    53, Eversley Crescent,
-                    <br />
-                    Ilford, London IG7 4LD
-                  </p>
-                </div>
+      {/* ===================== CONTACT SECTION ===================== */}
+      <section className="w-full bg-[#f3f3f3]">
+        <div className="max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 lg:grid-cols-2 gap-24">
+          
+          {/* ================= LEFT SIDE ================= */}
+          <div>
+            <h2 className="text-2xl font-semibold">
+              Say <span className="text-yellow-500">Hello</span>
+            </h2>
 
-                {/* EMAILS */}
-                <div className="space-y-2 pt-2">
-                  <div className="flex items-start gap-3">
-                    <span className="mt-[2px] text-black/60">✉</span>
-                    <p>vipin@coffeeandcreative.in</p>
-                  </div>
+            <div className="mt-10 space-y-8 text-[15px] leading-7 text-black/80">
+              <div>
+                <p className="font-bold">INDIA:</p>
+                <p className="mt-2">
+                  C-567 Saraswati Vihar, Pitampura, New Delhi - 110034
+                </p>
+              </div>
 
-                  <div className="flex items-start gap-3">
-                    <span className="mt-[2px] text-black/60">✉</span>
-                    <p>nitin@coffeeandcreative.in</p>
-                  </div>
-                </div>
+              <div>
+                <p className="font-bold">USA:</p>
+                <p className="mt-2">
+                  800 Custer Avenue,<br/>
+                  Evanston, Greater Chicago Area,<br/>
+                  IL, 60202
+                </p>
+              </div>
 
-                {/* NUMBERS */}
-                <div className="space-y-3 pt-2">
-                  <div>
-                    <p className="font-semibold text-black/60">
-                      Job Related Queries:
-                    </p>
-                    <div className="mt-2 space-y-1">
-                      <p className="flex items-center gap-3">
-                        <span className="text-black/60">📞</span>
-                        +91 9711087271 / +91 8586869612
-                      </p>
-                    </div>
-                  </div>
+              <div>
+                <p className="font-bold">UK:</p>
+                <p className="mt-2">
+                  53, Eversley Crescent,<br/>
+                  Ilford, London IG7 4LD
+                </p>
+              </div>
 
-                  <div>
-                    <p className="font-semibold text-black/60">
-                      Marketing Related Queries:
-                    </p>
-                    <div className="mt-2 space-y-1">
-                      <p className="flex items-center gap-3">
-                        <span className="text-black/60">📞</span>
-                        +91 9999777471 / +91 9999976666
-                      </p>
-                    </div>
-                  </div>
-                </div>
+              <div className="space-y-2 pt-4">
+                <p>✉ vipin@coffeeandcreative.in</p>
+                <p>✉ nitin@coffeeandcreative.in</p>
+              </div>
 
-                {/* TAGLINE */}
-                <div className="flex items-center gap-3 pt-2">
-                  <span className="text-black/60">☕</span>
-                  <p>Let’s brew thoughts</p>
-                </div>
+              <div className="pt-4">
+                <p className="font-semibold">Job Related Queries:</p>
+                <p className="mt-2">
+                  📞 +91 9711087271 / +91 8586869612
+                </p>
+              </div>
+
+              <div>
+                <p className="font-semibold">Marketing Related Queries:</p>
+                <p className="mt-2">
+                  📞 +91 9999777471 / +91 9999976666
+                </p>
+              </div>
+
+              <div className="pt-4 font-medium">
+                ☕ Let’s brew thoughts
               </div>
             </div>
+          </div>
 
-            {/* RIGHT: FORM */}
-            <div>
-              <h2 className="text-center text-sm font-semibold tracking-[0.25em] text-black/70">
-                Get In Touch
-              </h2>
+          {/* ================= RIGHT SIDE FORM ================= */}
+          <div>
+            <h2 className="text-2xl font-semibold">
+              Get In <span className="text-yellow-500">Touch</span>
+            </h2>
 
-              <form className="mt-10 max-w-md mx-auto">
-                <div className="space-y-3">
-                  <Input placeholder="Name.." />
-                  <Input placeholder="E-mail" />
-                  <Input placeholder="Contact No." />
+            <form onSubmit={handleSubmit} className="mt-10 space-y-6">
 
-                  <select className="w-full border border-lime-300 px-3 py-2 text-[11px] outline-none">
-                    <option>Subject</option>
-                    <option>Branding</option>
-                    <option>Website</option>
-                    <option>Digital Marketing</option>
-                    <option>Photography</option>
-                    <option>Films</option>
-                  </select>
+              <Input
+                placeholder="Name"
+                value={formData.name}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
+                error={errors.name}
+              />
 
-                  <textarea
-                    placeholder="Message"
-                    rows={5}
-                    className="w-full border border-lime-300 px-3 py-2 text-[11px] outline-none resize-none"
-                  />
+              <Input
+                placeholder="E-mail"
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
+                error={errors.email}
+              />
 
-                  <div className="pt-2">
-                    <button
-                      type="submit"
-                      className="bg-lime-400 text-black font-bold tracking-[0.25em] text-[10px] px-6 py-2 hover:bg-lime-300 transition"
-                    >
-                      SEND
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
+              <Input
+                placeholder="Contact No."
+                value={formData.phone}
+                onChange={(e) =>
+                  setFormData({ ...formData, phone: e.target.value })
+                }
+                error={errors.phone}
+              />
+
+              <div>
+                <select
+                  value={formData.subject}
+                  onChange={(e) =>
+                    setFormData({ ...formData, subject: e.target.value })
+                  }
+                  className="w-full border border-yellow-400 px-4 py-3 bg-transparent outline-none"
+                >
+                  <option value="">Select Subject</option>
+                  <option>Branding</option>
+                  <option>Website</option>
+                  <option>Digital Marketing</option>
+                  <option>Photography</option>
+                  <option>Films</option>
+                </select>
+                {errors.subject && (
+                  <p className="text-red-500 text-sm mt-1">{errors.subject}</p>
+                )}
+              </div>
+
+              <div>
+                <textarea
+                  placeholder="Message"
+                  rows={5}
+                  value={formData.message}
+                  onChange={(e) =>
+                    setFormData({ ...formData, message: e.target.value })
+                  }
+                  className="w-full border border-yellow-400 px-4 py-3 outline-none resize-none bg-transparent"
+                />
+                {errors.message && (
+                  <p className="text-red-500 text-sm mt-1">{errors.message}</p>
+                )}
+              </div>
+
+              <button
+                type="submit"
+                className="bg-yellow-400 text-black font-bold tracking-widest px-8 py-3 hover:bg-yellow-300 transition-all duration-300"
+              >
+                SEND
+              </button>
+
+            </form>
           </div>
         </div>
 
@@ -146,9 +228,8 @@ export default function ContactPage() {
           <iframe
             title="Coffee & Creative Map"
             src="https://www.google.com/maps?q=Pitampura%20New%20Delhi&z=13&output=embed"
-            className="w-full h-[320px]"
+            className="w-full h-[350px]"
             loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
           />
         </div>
       </section>
@@ -156,12 +237,18 @@ export default function ContactPage() {
   );
 }
 
-/* Small Input component */
-function Input({ placeholder }) {
+
+/* ================= Reusable Input ================= */
+function Input({ placeholder, value, onChange, error }) {
   return (
-    <input
-      placeholder={placeholder}
-      className="w-full border border-lime-300 px-3 py-2 text-[11px] outline-none"
-    />
+    <div>
+      <input
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        className="w-full border border-yellow-400 px-4 py-3 outline-none bg-transparent"
+      />
+      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+    </div>
   );
 }
